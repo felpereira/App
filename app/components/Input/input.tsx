@@ -3,13 +3,24 @@ import styles from "./input.style";
 
 interface InputProps {
   texto: string;
+  onChange: (textInput: string) => void;
+  value: string;
+  keyboardType?: "default" | "numeric";
 }
 
-export default function Input({ texto }: Readonly<InputProps>) {
+export default function Input({
+  texto,
+  onChange,
+  keyboardType,
+}: Readonly<InputProps>) {
   return (
     <View>
       <Text style={styles.texto}>{texto}</Text>
-      <TextInput style={styles.input}></TextInput>
+      <TextInput
+        style={styles.input}
+        onChangeText={(e) => onChange(e)}
+        keyboardType={keyboardType}
+      />
     </View>
   );
 }

@@ -27,7 +27,7 @@ export default function Button({
 
   return (
     <TouchableOpacity style={buttonStyle} onPress={onPress}>
-      {Icon && Icon}
+      {Icon && null}
       <Text style={styles().buttonText}>{text}</Text>
     </TouchableOpacity>
   );

@@ -4,9 +4,8 @@ import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
-import { View, Text } from "react-native";
 import Header from "./screens/Home/Header";
-import { StatusBar } from "expo-status-bar";
+import { useDatabaseInitializer } from "./modules/database/sqlLiteDatabaseInitializer";
 
 // import { useColorScheme } from "@/components/useColorScheme";
 
@@ -15,10 +14,10 @@ export {
   ErrorBoundary,
 } from "expo-router";
 
-export const unstable_settings = {
-  // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: "(tabs)",
-};
+// export const unstable_settings = {
+//   // Ensure that reloading on `/modal` keeps a back button present.
+//   initialRouteName: "(tabs)",
+// };
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -28,17 +27,18 @@ export default function RootLayout() {
     // SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
     ...FontAwesome.font,
   });
+  const [loadedDataBase, errorDataBase] = useDatabaseInitializer();
 
-  // Expo Router uses Error Boundaries to catch errors in the navigation tree.
   useEffect(() => {
     if (error) throw error;
-  }, [error]);
+    if (errorDataBase) throw errorDataBase;
+  }, [error, errorDataBase]);
 
   useEffect(() => {
-    if (loaded) {
+    if (loaded && loadedDataBase) {
       SplashScreen.hideAsync();
     }
-  }, [loaded]);
+  }, [loaded, loadedDataBase]);
 
   if (!loaded) {
     return null;

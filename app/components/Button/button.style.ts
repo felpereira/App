@@ -2,9 +2,9 @@ import { StyleSheet, DimensionValue } from "react-native";
 import { getTheme } from "../../modules/theme";
 
 export interface StyleProps {
-  width: DimensionValue | undefined;
-  gap: number | undefined;
-  flexDirection: "row" | undefined;
+  width?: DimensionValue;
+  gap?: number;
+  flexDirection?: "row";
 }
 
 const theme = getTheme();
